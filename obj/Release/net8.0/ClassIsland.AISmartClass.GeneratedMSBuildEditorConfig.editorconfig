@@ -1,0 +1,97 @@
+is_global = true
+build_property.AvaloniaNameGeneratorIsEnabled = true
+build_property.AvaloniaNameGeneratorBehavior = InitializeComponent
+build_property.AvaloniaNameGeneratorDefaultFieldModifier = internal
+build_property.AvaloniaNameGeneratorFilterByPath = *
+build_property.AvaloniaNameGeneratorFilterByNamespace = *
+build_property.AvaloniaNameGeneratorViewFileNamingStrategy = NamespaceAndClassName
+build_property.AvaloniaNameGeneratorAttachDevTools = true
+build_property.TargetFramework = net8.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EntryPointFilePath = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ClassIsland.AISmartClass
+build_property.ProjectDir = /Users/manicaldavid/Documents/Coding/AIIsland/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/Automation/GenerateAiNotificationActionSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/Automation/RefreshAiIslandComponentsActionSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/Automation/SetAiIslandExamModeActionSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/Automation/TriggerAiIslandReminderActionSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/ClassCountdown/ClassCountdown.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/ClassCountdown/ClassCountdownSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/CurrentHint/CurrentHint.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/CurrentHint/CurrentHintSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/DifficultyInfo/DifficultyInfo.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/DifficultyInfo/DifficultyInfoSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/HomeworkEstimate/HomeworkEstimate.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/HomeworkEstimate/HomeworkEstimateSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/NotificationProviders/SmartClassNotifierSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/ScheduleInsight/ScheduleInsight.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/ScheduleInsight/ScheduleInsightSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/SmartClassPanel/SmartClassPanel.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Controls/SmartClassPanelSettings/SmartClassPanelSettingsControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Styles/StableButtonStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Views/CustomReminderEditDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Views/PersonaWizardDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Views/PluginAuthorizationDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Views/PromptPreviewWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Views/SettingsPages/AISettingsPage.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/manicaldavid/Documents/Coding/AIIsland/Views/WelcomeWizard.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

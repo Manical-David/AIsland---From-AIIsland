@@ -1,0 +1,240 @@
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using ClassIsland.AISmartClass.PublicApi;
+using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace ClassIsland.AISmartClass.Models;
+
+/// <summary>
+/// AI 服务的全局配置。修改后立即生效，无需重启。
+/// 存储于插件的 PluginConfigFolder 下，由 ClassIsland 托管持久化。
+/// 注意：必须使用 ObservableObject（非 ObservableRecipient），
+/// 否则 IsActive/Messenger 属性会被序列化到 JSON，导致反序列化失败。
+/// </summary>
+public partial class AISettings : ObservableObject
+{
+    // ===== API 连接配置 =====
+
+    [ObservableProperty]
+    [property: JsonPropertyName("endpoint")]
+    private string _endpoint = "https://api.deepseek.com/chat/completions";
+    // 兼容 OpenAI Chat Completions 格式的 API 地址
+
+    [ObservableProperty]
+    [property: JsonPropertyName("apiKey")]
+    private string _apiKey = "";
+    // API 密钥（本地存储，不出网）
+
+    [ObservableProperty]
+    [property: JsonPropertyName("model")]
+    private string _model = "deepseek-chat";
+    // 模型名称，如 deepseek-chat / gpt-4o-mini / qwen-turbo
+
+    // ===== 语气风格 =====
+
+    /// <summary>
+    /// 语气风格索引：0=活泼，1=标准，2=严肃
+    /// 映射到不同的 temperature 值
+    /// </summary>
+    [ObservableProperty]
+    [property: JsonPropertyName("toneStyle")]
+    private int _toneStyle = 1;
+
+    /// <summary>
+    /// 自定义温度值（0.0-2.0），为null时使用语气风格映射的默认温度
+    /// 某些AI大模型可能要求特定的温度值，用户可手动调整
+    /// </summary>
+    [ObservableProperty]
+    [property: JsonPropertyName("customTemperature")]
+    private double? _customTemperature = null;
+
+    // ===== 角色语气 =====
+
+    /// <summary>
+    /// 是否启用角色语气。角色 = 说话语气/风格，独立叠加在「语气风格」之上。
+    /// </summary>
+    [ObservableProperty]
+    [property: JsonPropertyName("personaEnabled")]
+    private bool _personaEnabled = false;
+
+    /// <summary>
+    /// 选中的内置角色 Id（如 ganyu / hutao）。空表示未选内置角色（可能是自定义或关闭）。
+    /// </summary>
+    [ObservableProperty]
+    [property: JsonPropertyName("personaPresetId")]
+    private string _personaPresetId = "";
+
+    /// <summary>
+    /// 自定义角色设定文本。未选内置角色时生效。
+    /// </summary>
+    [ObservableProperty]
+    [property: JsonPropertyName("customPersona")]
+    private string _customPersona = "";
+
+    // ===== 行为参数 =====
+
+    [ObservableProperty]
+    [property: JsonPropertyName("maxTokens")]
+    private int _maxTokens = 200;
+    // 单次回复最大 token 数（提醒类内容均短，200 足够）
+
+    [ObservableProperty]
+    [property: JsonPropertyName("timeoutSeconds")]
+    private int _timeoutSeconds = 10;
+    // HTTP 请求超时秒数
+
+    [ObservableProperty]
+    [property: JsonPropertyName("cacheMinutes")]
+    private int _cacheMinutes = 5;
+    // 缓存有效期（分钟），相同上下文此时间内复用
+
+    [ObservableProperty]
+    [property: JsonPropertyName("maxRetries")]
+    private int _maxRetries = 1;
+    // 失败重试次数
+
+    [ObservableProperty]
+    [property: JsonPropertyName("aiLogRetentionDays")]
+    private int _aiLogRetentionDays = 30;
+    // AI 调用日志保留天数，超期日志自动清理
+
+    // ===== 向导与偏好 =====
+
+    [ObservableProperty]
+    [property: JsonPropertyName("wizardCompleted")]
+    private bool _wizardCompleted;
+
+    [ObservableProperty]
+    [property: JsonPropertyName("setupMode")]
+    private string _setupMode = "unknown";
+    // unknown / manual / recommended / offline
+
+    [ObservableProperty]
+    [property: JsonPropertyName("useSeriousToneInExamMode")]
+    private bool _useSeriousToneInExamMode = true;
+    // 考试期间自动切换严肃语气
+
+    [ObservableProperty]
+    [property: JsonPropertyName("enableFallbackWhenAiUnavailable")]
+    private bool _enableFallbackWhenAiUnavailable = true;
+    // AI 不可用时使用本地降级提示
+
+    [ObservableProperty]
+    [property: JsonPropertyName("enableApiCache")]
+    private bool _enableApiCache = true;
+    // 启用 AI 结果缓存节省 API 调用
+
+    [ObservableProperty]
+    [property: JsonPropertyName("enableExamModeLocalServer")]
+    private bool _enableExamModeLocalServer = true;
+    // 允许考试模式启动本地 HTTP 服务
+
+    [ObservableProperty]
+    [property: JsonPropertyName("showConfigStatusOnStartup")]
+    private bool _showConfigStatusOnStartup = true;
+    // 启动后显示配置状态提醒
+
+    // ===== 托盘菜单快捷操作开关 =====
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayMenuDefaultsVersion")]
+    private int _trayMenuDefaultsVersion = 1;
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayShowBeforeClassReminder")]
+    private bool _trayShowBeforeClassReminder = false;
+    // 托盘菜单显示"触发课前提醒"
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayShowBeforeSchoolReminder")]
+    private bool _trayShowBeforeSchoolReminder = false;
+    // 托盘菜单显示"生成智能每日简报"
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayShowAfterSchoolSummary")]
+    private bool _trayShowAfterSchoolSummary = false;
+    // 托盘菜单显示"触发放学总结"
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayShowRegenerateHomework")]
+    private bool _trayShowRegenerateHomework = false;
+    // 托盘菜单显示"重新生成作业量估算"
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayShowExamMode")]
+    private bool _trayShowExamMode = true;
+    // 托盘菜单显示"启动/停止考试模式"
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayShowRegenerateSummary")]
+    private bool _trayShowRegenerateSummary = true;
+    // 托盘菜单显示"重新生成课表总结"
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayShowRegenerateHint")]
+    private bool _trayShowRegenerateHint = true;
+    // 托盘菜单显示"重新生成学习提示"
+
+    [ObservableProperty]
+    [property: JsonPropertyName("trayShowCustomReminders")]
+    private bool _trayShowCustomReminders;
+    // 托盘菜单显示"触发自定义提醒"子菜单
+
+    // ===== 外部插件 API 授权 =====
+
+    /// <summary>
+    /// 默认授权策略：true=所有未单独配置的插件每次确认，false=允许直接调用。
+    /// 实际策略以每个 PluginAuthEntry 的 AuthMode 为准，此值为新插件初始模式。
+    /// </summary>
+    [ObservableProperty]
+    [property: JsonPropertyName("defaultAuthMode")]
+    private int _defaultAuthMode = 0;
+    // 0=PerCallConfirm（默认），1=Trusted
+
+    /// <summary>
+    /// 已记录的外部插件授权列表。按 PluginId 索引。
+    /// </summary>
+    [property: JsonPropertyName("pluginAuthEntries")]
+    public List<AIIslandPluginAuthEntry> PluginAuthEntries { get; set; } = new();
+
+    // ===== 插件集成（AIIsland 调用其他插件） =====
+
+    /// <summary>
+    /// 贴心提醒是否启用外部插件信息（生日提醒、值日插件等）
+    /// </summary>
+    [ObservableProperty]
+    [property: JsonPropertyName("enablePluginIntegration")]
+    private bool _enablePluginIntegration = false;
+
+    /// <summary>
+    /// 已授权的外部插件 GUID 集合（用于贴心提醒读取）
+    /// </summary>
+    [property: JsonPropertyName("authorizedIntegrationPlugins")]
+    public HashSet<string> AuthorizedIntegrationPlugins { get; set; } = new();
+
+    /// <summary>
+    /// 插件集成授权向导是否已完成（首次打开设置时触发）
+    /// </summary>
+    [ObservableProperty]
+    [property: JsonPropertyName("pluginIntegrationAuthorizationCompleted")]
+    private bool _pluginIntegrationAuthorizationCompleted = false;
+
+    /// <summary>获取 temperature 值：自定义温度优先，未设置时按语气风格映射。</summary>
+    public double GetTemperature()
+    {
+        // 如果用户设置了自定义温度，使用自定义值（限制在0.0-2.0范围内）
+        if (CustomTemperature.HasValue)
+        {
+            return Math.Clamp(CustomTemperature.Value, 0.0, 2.0);
+        }
+
+        // 未自定义时按语气风格映射：活泼高创造性、标准平衡、严肃稳定准确
+        return ToneStyle switch
+        {
+            0 => 1.0,
+            1 => 0.7,
+            2 => 0.3,
+            _ => 0.7
+        };
+    }
+}
